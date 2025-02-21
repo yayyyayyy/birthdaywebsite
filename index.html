@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffc0cb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        img, video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        video {
+            background: black;
+        }
+        #videoCaption {
+            display: none;
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #555;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body onclick="nextSlide()">
+    <div class="container">
+        <h2 id="text"></h2>
+        <img id="image" src="" alt="">
+        <video id="video" controls muted autoplay style="display: none;">
+            <source src="" type="video/mp4">
+        </video>
+        <p id="videoCaption">(keep tapping after watching the video to see the rest of the message.)</p>
+    </div>
+
+    <script>
+        let slides = [
+            { 
+                text: "happiest birthdayyyyy!🥰🥰", 
+                video: "birthday.mp4" 
+            },
+             { text: "Even Google knows!💞😆 ps: maine tumse itni baar subtly photuu maangne ka try kiya, but tum ho ki dete hi nahiii.😭😠😠", image: "pookie.png" },
+            { text: "here's your card, keep tapping slowly to view your birthday message!❤️", image: "envelope.png" },
+            { text: "Toh aaj aapka janamdin hai🥹\nSabse pehle toh aapke liye red carpet bichayenge to treat you like the king you are👑.", image: "carpet.png" },
+            // Rest of your original slides array...
+             { text: "happy birthday, mere fave person 🥳🎂 ek aur saal guzar gaya, par tum waise ke waise hi ho - very cute, very very massoom (sirf bahar se), aur zabardasti serious dikhne waale.🤡😆", image: "image1.png" },
+            { text: "tum officially ek aur saal buddhe ho gaye ho, lekin tension mat lo - tumhari goldfish memory ke chalte toh ye bhi bhool hi jaoge.🤪", image: "image2.png" },
+            { text: "", image: "image3.png" },
+            { text: "gyaan dena tumhara shauk hai, makkhan lagana talent hai, aur besharam hona tumhari pehchaan. 😝 kabhi kabhi itne besharam hojate ho ki mujhe bhi sharam aa jaaye.🤣", image: "image4.png" },
+            { text: "but it's okay i like your weird brain. tum kabhi bhi serious nahi reh sakte, aur agar reh gaye toh mujhe tension hone lagegi.😏", image: "image5.png" },
+            { text: "main hoti toh tumhe golgappa cake deti.😋 (tum pichle janam mein pakka golgappa hi rahe hoge.🤣)", image: "image6.png" },
+            { text: "tumse toh main duniya ka koi bhi dumb se dumb topic ho, uspe ghanton baat kar sakti hun (kyunki tum bhi dumb hi ho.)😚🫠", image: "image7.png" },
+            { text: "", image: "image8.png" },
+            { text: "tumhare lame se lame dad jokes pe bhi mujhe hansi aati hai.🤣 funny hoga bhi nahi but just cuz you said it toh aa hi jati hai.🤣🥰", image: "giggles.png" },
+            { text: "aisa lagta hai baat kar-karke pagal ho rahi hun, but koi naa.🤪", image: "image9.png" },
+            { text: "i looooovvveee talking to youu🫠🫠❤️❤️(even when you irritate me, jo ki tum roz karte ho.😠🤣 waise we're even cuz i love to 'pashan' you tooooo.💖😚🥹", image: "image11.png" },
+            { text: "I may not say it as often, but I do cherish you A LOT!🫠🥰🥹", image: "company.png" },
+            { text: "", image: "image12.png" },
+            { text: "", image: "image13.png" },
+            { text: "", image: "image14.png" },
+            { text: "", image: "image15.png" },
+            { text: "", image: "image16.png" },
+            { text: "FEW REASONS WHY YOU ARE AMAZING!", image: "ghost.png" },
+            { text: "1. Tum cute ho🥰", image: "image17.png" },
+            { text: "2. You are a green flag (for the most part, at least🤣😏)", image: "image18.png" },
+            { text: "3. You are fantastic, like my fave drink Fanta🤪❤️❤️", image: "image19.png" },
+            { text: "4. You are adorable😚❤️🫠🫠", image: "image20.png" },
+            { text: "", image: "veg.png" },
+            { text: "5. All in all, you're GREAT!✨😍", image: "cheesy.png" },
+            { text: "So, I give you a 10/10!!❤️🫠😚😚", image: "image21.png" },
+             { text: "I may be bad at math but according to my calculations:", image: "calc.png" },
+            { text: "", image: "cow.png" },
+            { text: "", image: "image22.png" },
+            { text: "I just wanna say that you are very very important to me❤️😚", image: "image23.png" },
+            { text: "you & me", image: "we.png" },
+            { text: "My fave colour was blue, but now it’s starting to become yellow too!💛⭐🫠", image: "image25.png" },
+            { text: "", image: "image26.png" },
+            { text: "therefore,", image: "image27.png" },
+            { text: "Sending you lots of warm hugss🫂😚💖✨", image: "image28.png" },
+            { text: "SENT🥰!!", image: "image29.png" },
+            { text: "Oh, nahi mili kya?🥲😅 IMAGINE KARLO PLEASE.😭😠", image: "image30.png" },
+            { text: "Just know that whatever it is;", image: "image31.png" },
+            { text: "", image: "cookie.png" },
+            { text: "", image: "image32.png" },
+            { text: "", image: "image33.png" },
+            { text: "", image: "flower.png" },
+            { text: "Dedicating some lyrics to youuu cuz I want to!😤", image: "image34.png" },
+            { text: "For meeee,", image: "image35.png" },
+            { text: "tumhare liye bas yahi wish karungi ki life mein humesha acchi cheezein milein, aur tumhe har woh khushi mile jo tum deserve karte ho (plus thodi extra, kyunki main itni acchi hun😌). happy birthday kuchi puchi!! 😚💖🥰", image: "image36.png" },
+            { text: "", image: "image37.png" },
+            { text: "HAPPY HAPPY BIRTHDAY POOKIE WOOKIE❤️✨😚🥹🫠", image: "image38.png" }
+        ];
+
+        let currentSlide = 0;
+        const textElement = document.getElementById('text');
+        const imageElement = document.getElementById('image');
+        const videoElement = document.getElementById('video');
+        const videoCaption = document.getElementById('videoCaption');
+
+        function nextSlide() {
+            if (currentSlide < slides.length) {
+                const slide = slides[currentSlide];
+                textElement.innerText = slide.text;
+
+                if (slide.video) {
+                    imageElement.style.display = 'none';
+                    videoElement.style.display = 'block';
+                    videoElement.querySelector('source').src = slide.video;
+                    videoElement.load();
+                    videoElement.play().catch(error => {
+                        videoElement.controls = true;
+                    });
+                    videoCaption.style.display = 'block';
+                } else {
+                    videoElement.style.display = 'none';
+                    imageElement.style.display = 'block';
+                    imageElement.src = slide.image || '';
+                    videoCaption.style.display = 'none';
+                }
+
+                currentSlide++;
+            }
+        }
+
+        nextSlide();
+    </script>
+</body>
+</html>
