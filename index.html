@@ -19,7 +19,6 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            flex-direction: column;
         }
         .container {
             width: 90%;
@@ -42,13 +41,6 @@
         video {
             background: black;
         }
-        #videoCaption {
-            display: none;
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #555;
-            font-style: italic;
-        }
     </style>
 </head>
 <body onclick="nextSlide()">
@@ -58,16 +50,17 @@
         <video id="video" controls muted autoplay style="display: none;">
             <source src="" type="video/mp4">
         </video>
-        <p id="videoCaption">(keep tapping after watching the video to see the rest of the message.)</p>
     </div>
 
     <script>
         let slides = [
+            // New video slide added here
             { 
                 text: "happiest birthdayyyyy!🥰🥰", 
                 video: "birthday.mp4" 
             },
-             { text: "Even Google knows!💞😆 ps: maine tumse itni baar subtly photuu maangne ka try kiya, but tum ho ki dete hi nahiii.😭😠😠", image: "pookie.png" },
+            // Original slides follow
+            { text: "Even Google knows!💞😆 ps: maine tumse itni baar subtly photuu maangne ka try kiya, but tum ho ki dete hi nahiii.😭😠😠", image: "pookie.png" },
             { text: "here's your card, keep tapping slowly to view your birthday message!❤️", image: "envelope.png" },
             { text: "Toh aaj aapka janamdin hai🥹\nSabse pehle toh aapke liye red carpet bichayenge to treat you like the king you are👑.", image: "carpet.png" },
             // Rest of your original slides array...
@@ -111,7 +104,6 @@
             { text: "", image: "cookie.png" },
             { text: "", image: "image32.png" },
             { text: "", image: "image33.png" },
-            { text: "", image: "flower.png" },
             { text: "Dedicating some lyrics to youuu cuz I want to!😤", image: "image34.png" },
             { text: "For meeee,", image: "image35.png" },
             { text: "tumhare liye bas yahi wish karungi ki life mein humesha acchi cheezein milein, aur tumhe har woh khushi mile jo tum deserve karte ho (plus thodi extra, kyunki main itni acchi hun😌). happy birthday kuchi puchi!! 😚💖🥰", image: "image36.png" },
@@ -123,29 +115,31 @@
         const textElement = document.getElementById('text');
         const imageElement = document.getElementById('image');
         const videoElement = document.getElementById('video');
-        const videoCaption = document.getElementById('videoCaption');
 
         function nextSlide() {
             if (currentSlide < slides.length) {
                 const slide = slides[currentSlide];
+                
                 textElement.innerText = slide.text;
-
-                if (slide.video) {
+                
+                // Handle video slides
+                if(slide.video) {
                     imageElement.style.display = 'none';
                     videoElement.style.display = 'block';
                     videoElement.querySelector('source').src = slide.video;
                     videoElement.load();
                     videoElement.play().catch(error => {
+                        // Auto-play was prevented, show controls
                         videoElement.controls = true;
                     });
-                    videoCaption.style.display = 'block';
-                } else {
+                } 
+                // Handle image slides
+                else {
                     videoElement.style.display = 'none';
                     imageElement.style.display = 'block';
                     imageElement.src = slide.image || '';
-                    videoCaption.style.display = 'none';
                 }
-
+                
                 currentSlide++;
             }
         }
