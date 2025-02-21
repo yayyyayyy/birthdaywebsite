@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday My Favorite Person! 🎂</title>
     <style>
         * {
             margin: 0;
@@ -49,9 +49,16 @@
             color: #555;
             font-style: italic;
         }
+        #backgroundMusic {
+            display: none;
+        }
     </style>
 </head>
 <body onclick="nextSlide()">
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
         <h2 id="text"></h2>
         <img id="image" src="" alt="">
@@ -69,11 +76,11 @@
             },
             { text: "💌Here's your card, keep tapping slowly to view your birthday message!💌", image: "envelope.png" },
             { text: "Toh aaj aapka janamdin hai.🥹\nSabse pehle toh aapke liye red carpet bichayenge, to treat you like the king you are👑.", image: "carpet.png" },
-            { text: "Even Google knows!💞😆 \nPS: maine tumse itni baar subtly photuu maangne ka try kiya, but tum ho ki dete hi nahiii.😭😠😠", image: "pookie.png" },
+            { text: "Even Google knows!💞😆 \nPS: maine tumse itni baar subtly photuu maangne ka try kiya, but tum ho ki dete hi nahiii.😭😠😤", image: "pookie.png" },
             { text: "Happy birthday, mere favourite person!🥳🎈🎂Ek aur saal guzar gaya, par tum waise ke waise hi ho; very cute, very very massoom (sirf bahar se), aur zabardasti serious dikhne wale.🤡😆", image: "image1.png" },
             { text: "Tum officially ek aur saal buddhe ho gaye ho, lekin tension mat lo - tumhari goldfish memory ke chalte toh ye bhi bhool hi jaoge.🤪", image: "image2.png" },
             { text: "", image: "image3.png" },
-            { text: "Gyaan dena tumhara shauq hai, makkhan lagana talent hai, aur besharam hona tumhari pehchaan. 😝 Itne besharam hojate ho ki mujhe tumhare hisse ki bhi sharam aa jati hai.🤣", image: "image4.png" },
+            { text: "Gyaan dena tumhara shauq hai, makkhan lagana talent hai, aur besharam hona tumhari pehchaan.😝 Itne besharam hojate ho ki mujhe tumhare hisse ki bhi sharam aa jati hai.🤣", image: "image4.png" },
             { text: "But it's okay cutie, I like your weird brain. Tum kabhi bhi serious nahi reh sakte, aur agar reh gaye toh mujhe tension hone lagegi.😏", image: "image5.png" },
             { text: "Main hoti toh tumhe golgappa cake deti.😋 (tum pichle janam mein pakka golgappa hi rahe hoge.🤣)", image: "image6.png" },
             { text: "Tumse toh main duniya ka koi bhi dumb se dumb topic ho, uspe ghanton baat kar sakti hun (kyunki tum bhi toh dumb hi ho.)😚🫠", image: "image7.png" },
@@ -95,7 +102,7 @@
             { text: "AND MANY MOREEEE!!", image: "veg.png" },
             { text: "All in all, you're GREAT!✨😍", image: "cheesy.png" },
             { text: "So, I give you a 10/10!!❤️🫠😚😚", image: "image21.png" },
-             { text: "I may be bad at math, BUT I amd right this time, and according to my calculations:", image: "calc.png" },
+            { text: "I may be bad at math, BUT I amd right this time, and according to my calculations:", image: "calc.png" },
             { text: "", image: "cow.png" },
             { text: "", image: "image22.png" },
             { text: "I just wanna say that you are very very important to me.❤️😚", image: "image23.png" },
@@ -105,7 +112,7 @@
             { text: "Therefore,", image: "image27.png" },
             { text: "Sending you lots of warm hugsss🫂😚💖✨", image: "image28.png" },
             { text: "SENT!!🥰", image: "image29.png" },
-            { text: "Oh, nahi mili kya?🥲😅 IMAGINE KARLO PLEASE.😭😠", image: "image30.png" },
+            { text: "Oh, nahi mili kya?🥲😅 \nIMAGINE KARLO PLEASE.😭😠", image: "image30.png" },
             { text: "Just know that whatever it is;", image: "image31.png" },
             { text: "", image: "cookie.png" },
             { text: "", image: "image32.png" },
@@ -115,7 +122,7 @@
             { text: "For meeee,", image: "image35.png" },
             { text: "Tumhare liye bas yahi wish karungi ki life mein humesha acchi cheezein milein, aur tumhe har woh khushi mile jo tum deserve karte ho (plus thodi extra, kyunki main itni acchi hun😌). Happy birthday kuchi puchi!! 😚💖🥰", image: "image36.png" },
             { text: "", image: "image37.png" },
-            { text: "HAPPY HAPPY BIRTHDAY POOKIE WOOKIE❤️✨😚🥹🫠", image: "image38.png" }
+            { text: "🎈🎊🥳🥰HAPPY HAPPY BIRTHDAY POOKIE WOOKIE🎊❤️✨😚🥹🫠", image: "image38.png" }
         ];
 
         let currentSlide = 0;
@@ -123,11 +130,19 @@
         const imageElement = document.getElementById('image');
         const videoElement = document.getElementById('video');
         const videoCaption = document.getElementById('videoCaption');
+        const bgMusic = document.getElementById('backgroundMusic');
 
         function nextSlide() {
             if (currentSlide < slides.length) {
                 const slide = slides[currentSlide];
                 textElement.innerText = slide.text;
+
+                // Start music at envelope slide (index 1)
+                if(currentSlide === 1) {
+                    bgMusic.play().catch(error => {
+                        console.log('Music autoplay blocked:', error);
+                    });
+                }
 
                 if (slide.video) {
                     imageElement.style.display = 'none';
