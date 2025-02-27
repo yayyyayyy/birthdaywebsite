@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday My Favourite Person!🥰🎂</title>
+    <title>Happyyy Birthdayyy!🥰🎂</title>
     <style>
         * {
             margin: 0;
@@ -52,9 +52,41 @@
         #backgroundMusic {
             display: none;
         }
+        .quiz {
+            display: none;
+            text-align: left;
+        }
+        .quiz-option {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .feedback {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: bold;
+            display: none;
+            z-index: 1000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .correct { color: #4CAF50; }
+        .wrong { color: #f44336; }
+        .flash {
+            animation: flash 1.5s ease-in-out;
+        }
+        @keyframes flash {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
     </style>
 </head>
-<body onclick="nextSlide()">
+<body>
     <audio id="backgroundMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
@@ -66,14 +98,16 @@
             <source src="" type="video/mp4">
         </video>
         <p id="videoCaption">(keep tapping after watching the video to see the rest of the message.)</p>
+        <div id="quiz" class="quiz">
+            <p id="quizQuestion"></p>
+            <div id="quizOptions"></div>
+            <div id="feedback" class="feedback"></div>
+        </div>
     </div>
 
     <script>
         let slides = [
-            { 
-                text: "Happyyyyy Birthdayyy to youuu!🥰🥰", 
-                video: "birthday.mp4" 
-            },
+            { text: "Happyyyyy Birthdayyy to youuu!🥰🥰", video: "birthday.mp4" },
             { text: "💌Here's your card, thoda dheere tap karna, glitch hota hai sometimes.😭🫣💌", image: "envelope.png" },
             { text: "Toh aaj aapka janamdin hai.🥹\nSabse pehle toh aapke liye red carpet bichayenge, to treat you like the king you are👑.", image: "carpet.png" },
             { text: "Even Google knows!💞😆 \nPS: maine tumse itni baar subtly photuu maangne ka try kiya, but tum ho ki dete hi nahiii.😭😠\nBas 1-2 dii wo bhi dhamki ke baad.🤦🏻‍♀️", image: "pookie.png" },
@@ -111,13 +145,14 @@
             { text: "You & Me😆", image: "we.png" },
             { text: "", image: "image3.png" },
             { text: "", image: "dirty.png" },
+            { text: "Now before you say ki mera dimaag zyaada ganda hai😏", image: "understand.png" },
             { text: "", image: "mice.png" },
             { text: "My favourite colour was blue, but now it’s yellow too.💛⭐🫠", image: "image25.png" },
             { text: "", image: "image26.png" },
             { text: "Therefore,", image: "image27.png" },
             { text: "", image: "handsome.png" },
             { text: "", image: "god.png" },
-            { text: "Sending you lots of warm hugsss🫂😚💖✨", image: "image28.png" },
+            { text: "Sending you lots of warm hugsss.🫂😚💖✨", image: "image28.png" },
             { text: "SENT!!🥰", image: "image29.png" },
             { text: "Oh, nahi mili kya?🥲IMAGINE KARLO PLEASE.😭😠", image: "image30.png" },
             { text: "Just know that whatever it is;", image: "image31.png" },
@@ -129,53 +164,133 @@
             { text: "", image: "frog.png" },
             { text: "Dedicating some lyrics to youuu cuz I want to!😤", image: "image34.png" },
             { text: "For meeee,", image: "image35.png" },
-            { text: "Tumhare liye bas yahi wish karungi ki life mein humesha acchi cheezein milein, aur tumhe har woh khushi mile jo tum deserve karte ho (plus thodi extra, kyunki main itni acchi hun😌). Happy birthday kuchi puchi!! 😚💖🥰", image: "image36.png" },
+            { text: "Tumhare liye bas yahi wish karungi ki life mein humesha acchi cheezein milein, aur tumhe har woh khushi mile jo tum deserve karte ho (plus thodi extra, kyunki main itni acchi hun😌). Happy birthday kuchi puchi!!😍😚💖🥰", image: "image36.png" },
             { text: "", image: "image37.png" },
             { text: "", image: "best.png" },
-            { text: "❤️HAPPY HAPPY BIRTHDAY POOKIE WOOKIE❤️✨😚🥹🫠", image: "image38.png" }
+            { text: "Chalo ek mere baare mein quiz hai, use solve karo.😋", image: "quizme.png" },
+            
+            // QUIZ SLIDES
+            { type: "quiz", question: "Q1: Mera favourite food kya hai?(waise hai toh koi bhi nahi pakka🤪)", options: ["Golgappe", "Pizza", "Dosa", "Pizza"], answer: "Golgappe" },
+            { type: "quiz", question: "Q2: Mera favourite dessert?", options: ["Gulab Jamun🤎", "Shahi Tukda🩷", "Cham-Cham🤍", "Ice Cream💙"], answer: "Shahi Tukda🩷" },
+            { type: "quiz", question: "Q3: Mera favourite colour kya hai?", options: ["Red❤️", "Blue💙", "Pink🩷", "Black🖤"], answer: "Blue💙" },
+            { type: "quiz", question: "Q4: Mere baare mein koi buraayi?", options: ["Bahot bolti hai😩", "Bahot bully karti hai(terrorkobolt)😈", "Aalsi hai🦥", "Buraayi and Ridhi don't belong in the same sentence.🥰😋"], answer: "Buraayi and Ridhi don't belong in the same sentence.🥰😋" },
+            { type: "quiz", question: "Q5: Meri sabse buri habit kya hai?", options: ["Overthinking", "Procrastination", "Mean", "Jaisi hai best hai😋"], answer: "Jaisi hai best hai😋" },
+            { type: "quiz", question: "Q6: Agar main ek animal hoti, toh main kaunsa hoti?", options: ["Billi😼", "Langoor🐒", "Sher🤣🦁", "Penguin🐧"], answer: "Billi😼" },
+            { type: "quiz", question: "Q7: Meri sabse acchi quality kya hai?✨💁🏻‍♀️", options: ["Sarcasm💅🏻", "Humour🤪", "Nature🍃", "Sab kuch🥰🙂‍↕️"], answer: "Sab kuch🥰🙂‍↕️" },
+            { type: "quiz", question: "Q8: Mere baare mein sabse funny baat kya hai?🤣", options: ["Shakal😒", "Baatein🗣️", "Harkatein💁🏻‍♀️", "Forehead💢"], answer: "all except Shakal😒" },
+            { type: "quiz", question: "Q9: Agar main ek din ke liye aap, aka Saurav bann jaun, toh sabse pehle kya karungi?🤣", options: ["Sundar ladki dekhi nahi ki line chaalu kardungi😝", "Soungi😴", "Dad jokes maarungi😆", "Tumhe bhi pata hai, all of the above😝"], answer: "Tumhe bhi pata hai, all of the above😝" },
+            // FINAL SLIDES
+            { text: "Quiz khatam🤣\nResults tum mujhe khud hi baad mein bata dena, waise mujhe expected hai 1-2 toh kar hi loge answer.😝", image: "khikhi.png" },
+            { text: "What is my favourite?🙂‍↕️🥰", image: "youuu.png" },
+            { text: "It's Youuu!!❤️✨🫠", image: "stars.png" },
+            { text: "❤️HAPPY HAPPY BIRTHDAY POOKIE WOOKIE!❤️✨😚🥹🫠", image: "image38.png" }
+            // ADD MORE SLIDES HERE
         ];
 
         let currentSlide = 0;
-        const textElement = document.getElementById('text');
-        const imageElement = document.getElementById('image');
-        const videoElement = document.getElementById('video');
-        const videoCaption = document.getElementById('videoCaption');
-        const bgMusic = document.getElementById('backgroundMusic');
+        let quizActive = false;
+        let videoEnded = false;
+        const elements = {
+            text: document.getElementById('text'),
+            image: document.getElementById('image'),
+            video: document.getElementById('video'),
+            videoCaption: document.getElementById('videoCaption'),
+            bgMusic: document.getElementById('backgroundMusic'),
+            quiz: document.getElementById('quiz'),
+            quizQuestion: document.getElementById('quizQuestion'),
+            quizOptions: document.getElementById('quizOptions'),
+            feedback: document.getElementById('feedback')
+        };
 
-        function nextSlide() {
-            if (currentSlide < slides.length) {
-                const slide = slides[currentSlide];
-                textElement.innerText = slide.text;
+        function showSlide() {
+            const slide = slides[currentSlide];
+            elements.text.innerText = slide.text || '';
+            elements.videoCaption.style.display = 'none';
 
-                // Start music at carpet slide (index 2) with 50% volume
-                if(currentSlide === 2) {
-                    bgMusic.volume = 0.5;
-                    bgMusic.play().catch(error => {
-                        console.log('Music autoplay blocked:', error);
+            if (slide.video) {
+                elements.videoCaption.style.display = 'block';
+                elements.image.style.display = 'none';
+                elements.video.style.display = 'block';
+                elements.video.querySelector('source').src = slide.video;
+                elements.video.load();
+                elements.video.play();
+                elements.quiz.style.display = 'none';
+                videoEnded = false;
+            } else if (slide.image) {
+                elements.video.style.display = 'none';
+                elements.image.style.display = 'block';
+                elements.image.src = slide.image;
+                elements.quiz.style.display = 'none';
+            } else if (slide.type === "quiz") {
+                elements.video.style.display = 'none';
+                elements.image.style.display = 'none';
+                elements.quiz.style.display = 'block';
+                elements.quizQuestion.textContent = slide.question;
+                elements.quizOptions.innerHTML = '';
+                if (slide.options) {
+                    slide.options.forEach(option => {
+                        const div = document.createElement('div');
+                        div.className = 'quiz-option';
+                        div.textContent = option;
+                        div.onclick = () => checkAnswer(option, slide.answer);
+                        elements.quizOptions.appendChild(div);
                     });
-                }
+                } 
+                quizActive = true;
+            } else {
+                elements.video.style.display = 'none';
+                elements.image.style.display = 'none';
+                elements.quiz.style.display = 'none';
+                quizActive = false;
+            }
 
-                if (slide.video) {
-                    imageElement.style.display = 'none';
-                    videoElement.style.display = 'block';
-                    videoElement.querySelector('source').src = slide.video;
-                    videoElement.load();
-                    videoElement.play().catch(error => {
-                        videoElement.controls = true;
-                    });
-                    videoCaption.style.display = 'block';
-                } else {
-                    videoElement.style.display = 'none';
-                    imageElement.style.display = 'block';
-                    imageElement.src = slide.image || '';
-                    videoCaption.style.display = 'none';
-                }
-
-                currentSlide++;
+            if (currentSlide === 2) {
+                elements.bgMusic.volume = 0.5;
+                elements.bgMusic.play();
             }
         }
 
-        nextSlide();
+        function checkAnswer(answer, correct) {
+            let isCorrect = false;
+            
+            if (Array.isArray(correct)) {
+                isCorrect = correct.some(c => answer.toLowerCase().includes(c.toLowerCase()));
+            } else if (correct === "all except Shakal😒") {
+                isCorrect = answer !== "Shakal😒";
+            } else {
+                isCorrect = answer === correct;
+            }
+
+            elements.feedback.textContent = isCorrect ? 'Waah, tumhe yaad tha😏🍰' : 'Hattttt😕😠!';
+            elements.feedback.className = `feedback ${isCorrect ? 'correct' : 'wrong'} flash`;
+            elements.feedback.style.display = 'block';
+
+            setTimeout(() => {
+                elements.feedback.style.display = 'none';
+                quizActive = false;
+                if (isCorrect) {
+                    currentSlide++;
+                    showSlide();
+                }
+            }, 1500);
+        }
+
+        elements.video.onended = () => {
+            videoEnded = true;
+            elements.video.controls = true;
+        };
+
+        document.body.onclick = (e) => {
+            if (quizActive) return;
+            if (elements.video.style.display === 'block' && !videoEnded) return;
+
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide();
+            }
+        };
+
+        showSlide();
     </script>
 </body>
 </html>
