@@ -179,12 +179,12 @@
             { type: "quiz", question: "Q7: Meri sabse acchi quality kya hai?✨💁🏻‍♀️", options: ["Sarcasm💅🏻", "Humour🤪", "Nature🍃", "Sab kuch🥰🙂‍↕️"], answer: "Sab kuch🥰🙂‍↕️" },
             { type: "quiz", question: "Q8: Mere baare mein sabse funny baat kya hai?🤣", options: ["Shakal😒", "Baatein🗣️", "Harkatein💁🏻‍♀️", "Forehead💢"], answer: "all except Shakal😒" },
             { type: "quiz", question: "Q9: Agar main ek din ke liye aap, aka Saurav bann jaun, toh sabse pehle kya karungi?🤣", options: ["Sundar ladki dekhi nahi ki line chaalu kardungi😝", "Soungi😴", "Dad jokes maarungi😆", "Tumhe bhi pata hai, all of the above😝"], answer: "Tumhe bhi pata hai, all of the above😝" },
+            
             // FINAL SLIDES
             { text: "Quiz khatam🤣\nResults tum mujhe khud hi baad mein bata dena, waise mujhe expected hai 1-2 toh kar hi loge answer.😝", image: "khikhi.png" },
             { text: "What is my favourite?🙂‍↕️🥰", image: "youuu.png" },
             { text: "It's Youuu!!❤️✨🫠", image: "stars.png" },
             { text: "❤️HAPPY HAPPY BIRTHDAY POOKIE WOOKIE!❤️✨😚🥹🫠", image: "image38.png" }
-            // ADD MORE SLIDES HERE
         ];
 
         let currentSlide = 0;
@@ -232,16 +232,14 @@
                         const div = document.createElement('div');
                         div.className = 'quiz-option';
                         div.textContent = option;
-                        div.onclick = () => checkAnswer(option, slide.answer);
+                        div.onclick = (e) => {
+                            e.stopPropagation();
+                            checkAnswer(option, slide.answer);
+                        };
                         elements.quizOptions.appendChild(div);
                     });
-                } 
+                }
                 quizActive = true;
-            } else {
-                elements.video.style.display = 'none';
-                elements.image.style.display = 'none';
-                elements.quiz.style.display = 'none';
-                quizActive = false;
             }
 
             if (currentSlide === 2) {
@@ -253,9 +251,7 @@
         function checkAnswer(answer, correct) {
             let isCorrect = false;
             
-            if (Array.isArray(correct)) {
-                isCorrect = correct.some(c => answer.toLowerCase().includes(c.toLowerCase()));
-            } else if (correct === "all except Shakal😒") {
+            if (correct === "all except Shakal😒") {
                 isCorrect = answer !== "Shakal😒";
             } else {
                 isCorrect = answer === correct;
@@ -267,8 +263,8 @@
 
             setTimeout(() => {
                 elements.feedback.style.display = 'none';
-                quizActive = false;
                 if (isCorrect) {
+                    quizActive = false;
                     currentSlide++;
                     showSlide();
                 }
@@ -286,11 +282,12 @@
 
             if (currentSlide < slides.length - 1) {
                 currentSlide++;
-                showSlide();
-            }
+                showSlide();           
+               }
         };
 
         showSlide();
     </script>
 </body>
+</html>
 </html>
